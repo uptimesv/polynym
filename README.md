@@ -1,5 +1,5 @@
 # polynym
-A simple library and API that accepts any [HandCash](https://handcash.io) `$handle`, [RelayX](https://relayx.io) `1handle` or PayMail address and resolves it to a Bitcoin SV P2PKH address, as well as accepting and returning valid P2PKH addresses. You can also use it as a lookup service on [polynym.io](https://polynym.io) or consume it as a free API over at `https://api.polynym.io/<address or handle>` in any of your projects.
+A simple library and API that accepts any [HandCash](https://handcash.io) `$handle`, [RelayX](https://relayx.io) `1handle` or PayMail address and resolves it to a Bitcoin SV P2PKH address, as well as accepting and returning valid P2PKH addresses. You can also use it as a lookup service on [polynym.io](https://polynym.io) or consume it as a free API over at `https://api.polynym.io/getAddress/<address or handle>` in any of your projects.
 
 ## usage
 
@@ -10,7 +10,7 @@ const express = require('express'),
 app = express(),
 polynym = require('polynym');
 
-app.get('/:id', (req, res) => {
+app.get('/getAddress/:id', (req, res) => {
     polynym(req.params.id).then(x => {
         res.json(x);
     }).catch(e=>{
@@ -28,7 +28,7 @@ const express = require('express'),
 app = express(),
 polynym = require('polynym');
 
-app.get('/:id', async (req, res) => {
+app.get('/getAddress/:id', async (req, res) => {
     try {
       x = await polynym(req.params.id);
       res.json(x);
@@ -40,7 +40,7 @@ app.get('/:id', async (req, res) => {
 app.listen(1337);
 ```
 
-In the above example, a GET request to `http://localhost:1337/$unwriter` would return the Bicoin SV address of unwriter's HandCash $handle: `{"address":"15EwahT55Yn566A7tagq5Mbyhs8txjZpus"}`
+In the above example, a GET request to `http://localhost:1337/getAddress/$unwriter` would return the Bicoin SV address of unwriter's HandCash $handle: `{"address":"15EwahT55Yn566A7tagq5Mbyhs8txjZpus"}`
 
 ## support
 
