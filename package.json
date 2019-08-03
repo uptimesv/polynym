@@ -1,6 +1,6 @@
 {
   "name": "polynym",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple solution to resolve BSV addresses from popular wallets and services",
   "main": "index.js",
   "scripts": {
