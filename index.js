@@ -3,7 +3,7 @@ const axios = require('axios');
 function resolveType(id){
     const types = [{
         name: 'HandCash',
-        regex: new RegExp(/^[$][\a-z0-9\-_.]{4,50}$/)
+        regex: new RegExp(/^[$][\a-zA-Z0-9\-_.]{4,50}$/)
     },
     {
         name: 'P2PKH',
@@ -11,7 +11,7 @@ function resolveType(id){
     },
     {
         name: 'RelayX',
-        regex: new RegExp(/^[1][\a-z0-9]*$/)
+        regex: new RegExp(/^[1][\a-zA-Z0-9]*$/)
     },
     {
         name: 'PayMail',
@@ -27,11 +27,13 @@ function resolveType(id){
 
 //RelayX
 async function callRelayX(id) {
+    id = id.toLowerCase();
     return axios.get('https://www.relayx.io/api/receivingAddress/' + id);
 }
 
 //HandCash
 async function callHandCash(id) {
+    id = id.toLowerCase();
     id = id.replace('$','');
     return axios.get('https://api.handcash.io/api/receivingAddress/' + id);
 }
