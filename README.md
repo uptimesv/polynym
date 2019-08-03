@@ -31,7 +31,7 @@ polynym = require('polynym');
 
 app.get('/getAddress/:id', async (req, res) => {
     try {
-      x = await polynym(req.params.id);
+      x = await polynym.resolveAddress(req.params.id);
       res.json(x);
     } catch(e){
       res.status(400).json(e);

@@ -68,7 +68,7 @@ module.exports = {
             } else if(type=='PayMail'){
                 try {
                     let x = await callPayMail(id);
-                    resolve({address: x});
+                    resolve({address: x.data.address});
                 } catch(e){
                     reject({ error: 'PayMail not found' });
                 }
