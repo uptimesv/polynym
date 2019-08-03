@@ -1,4 +1,5 @@
-# polynym
+<img src="https://polynym.io/logo.svg" width="200" alt="polynym">
+
 A simple library and API that accepts any [HandCash](https://handcash.io) `$handle`, [RelayX](https://relayx.io) `1handle` or PayMail address and resolves it to a Bitcoin SV P2PKH address, as well as accepting and returning valid P2PKH addresses. You can also use it as a lookup service on [polynym.io](https://polynym.io) or consume it as a free API over at `https://api.polynym.io/getAddress/<address or handle>` in any of your projects.
 
 ## usage
