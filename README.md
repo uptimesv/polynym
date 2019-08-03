@@ -12,7 +12,7 @@ app = express(),
 polynym = require('polynym');
 
 app.get('/getAddress/:id', (req, res) => {
-    polynym(req.params.id).then(x => {
+    polynym.resolveAddress(req.params.id).then(x => {
         res.json(x);
     }).catch(e=>{
         res.status(400).json(e);
