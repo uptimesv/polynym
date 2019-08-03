@@ -41,38 +41,40 @@ async function callPayMail(id) {
     return axios.get('https://api.polynym.io/getAddress/' + id);
 }
 
-module.exports = async function polynym(id){
-    return new Promise(async(resolve, reject) => {
-        const type = resolveType(id);
-        if(type=='P2PKH'){
-            resolve({address: id});
-        } else if(type=='HandCash'){
-            try { 
-                let x = await callHandCash(id);
-                resolve({address: x.data.receivingAddress});
-            } catch(e){
-                reject({ error: '$handle not found' });
-            }
-        } else if(type=='RelayX'){
-            try { 
-                let x = await callRelayX(id);
-                if(x.data.receivingAddress){
+module.exports = {
+    resolveAddress: async function(id){
+        return new Promise(async(resolve, reject) => {
+            const type = resolveType(id);
+            if(type=='P2PKH'){
+                resolve({address: id});
+            } else if(type=='HandCash'){
+                try { 
+                    let x = await callHandCash(id);
                     resolve({address: x.data.receivingAddress});
-                } else {
-                    reject({ error: '1handle not found' });
+                } catch(e){
+                    reject({ error: '$handle not found' });
                 }
-            } catch(e){
-                reject(e)
-            }
-        } else if(type=='PayMail'){
-            try {
-                let x = await callPayMail(id);
-                resolve({address: x});
-            } catch(e){
-                reject({ error: 'PayMail not found' });
-            }
-        } else {
-            reject({ error: 'Unable to resolve to address' });
-        }    
-    });
+            } else if(type=='RelayX'){
+                try { 
+                    let x = await callRelayX(id);
+                    if(x.data.receivingAddress){
+                        resolve({address: x.data.receivingAddress});
+                    } else {
+                        reject({ error: '1handle not found' });
+                    }
+                } catch(e){
+                    reject(e)
+                }
+            } else if(type=='PayMail'){
+                try {
+                    let x = await callPayMail(id);
+                    resolve({address: x});
+                } catch(e){
+                    reject({ error: 'PayMail not found' });
+                }
+            } else {
+                reject({ error: 'Unable to resolve to address' });
+            }    
+        });
+    }
 };
