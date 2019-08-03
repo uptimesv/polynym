@@ -1,5 +1,4 @@
-const axios = require('axios'),
-bsv = require('bsv');
+const axios = require('axios');
 
 function resolveType(id){
     const types = [{
@@ -39,14 +38,7 @@ async function callHandCash(id) {
 
 //PayMail
 async function callPayMail(id) {
-    let name = id.split('@');
-    let url = name.pop();
-    const paymail = await axios.get('http://' + url + '/.well-known/bsvalias');
-    let publicKeyURI = paymail.data.capabilities.pki.replace('{domain.tld}',url).replace('{alias}', name);
-    const pub = await axios.get(publicKeyURI);
-    const publicKey = bsv.PublicKey.fromHex(pub.data.pubkey);
-    const address = bsv.Address.fromPublicKey(publicKey);
-    return address.toString();
+    return axios.get('https://api.polynym.io/getAddress/' + id);
 }
 
 module.exports = async function polynym(id){
