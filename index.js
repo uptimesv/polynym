@@ -31,13 +31,6 @@ async function callRelayX(id) {
     return axios.get('https://www.relayx.io/api/receivingAddress/' + id);
 }
 
-//HandCash
-async function callHandCash(id) {
-    id = id.toLowerCase();
-    id = id.replace('$','');
-    return axios.get('https://api.handcash.io/api/receivingAddress/' + id);
-}
-
 //PayMail
 async function callPayMail(id) {
     return axios.get('https://api.polynym.io/getAddress/' + id);
@@ -50,9 +43,12 @@ module.exports = {
             if(type=='P2PKH'){
                 resolve({address: id});
             } else if(type=='HandCash'){
+                id = id.toLowerCase();
+                id = id.replace('$','');
+                id = id + '@handcash.io';
                 try { 
-                    let x = await callHandCash(id);
-                    resolve({address: x.data.receivingAddress});
+                    let x = await callPayMail(id);
+                    resolve({address: x.data.address});
                 } catch(e){
                     reject({ error: '$handle not found' });
                 }
